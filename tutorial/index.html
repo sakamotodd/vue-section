@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+  </head>
+  <style>
+    .list {
+      list-style: none;
+    }
+    .active {
+      background-color: skyblue;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <input type="text" v-model="txt" />
+      <button @click="addTodo(txt)">追加</button>
+      <input type="text" v-model="serchTxt" />
+      <button @click="filTodo">探す</button>
+      <ul>
+        <li class="list" v-for="(todo, i) in filters">
+          <input type="checkbox" v-model="todo.flag" />
+          <span>{{todo.msg}}</span>
+          <button
+            @click="deleteTodo(i)"
+            :disabled="!todo.flag"
+            :class="{active: todo.flag}"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <script>
+      let app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            txt: '',
+            serchTxt: '',
+            id: 0,
+            messages: [],
+            filters: [],
+          }
+        },
+        methods: {
+          addTodo() {
+            this.filters = []
+            const content = {
+              msg: this.txt,
+              flag: false,
+            }
+            this.messages.push(content)
+            this.filters = Array.from(this.messages)
+            this.txt = ''
+          },
+          deleteTodo(index) {
+            this.filters = []
+            this.filters = this.messages.splice(index, 1)
+          },
+          filTodo() {
+            this.filters = []
+            this.filters = this.messages.filter(
+              (f) => f.msg.indexOf(this.serchTxt) !== -1
+            )
+            this.serchTxt = ''
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

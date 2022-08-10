@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+  </head>
+  <body>
+    <!--仮想DOM　Dataの表示波かっこ-->
+    <div id="app">
+      {{ message }}
+      <a v-bind:href="google">グーグルリンク</a>
+      <a :href="google">グーグルリンク</a>
+      <a :href="book.url">{{book.title}}</a>
+      <br />
+      <input v-bind="formInput" />
+    </div>
+    <script>
+      // vueクラス->インスタンス化（実体） new
+      let app = new Vue({
+        el: "#app",
+        // dataの中に書かれているものはdomに反映
+        data() {
+          // 初期設定
+          return {
+            message: "Hello Vue!", //key - value
+            google: "https://google.com",
+            book: {
+              title: "本のタイトル",
+              url: "https://google.com",
+            },
+            formInput: {
+              name: "daigoro",
+              placeholder: "名前かけ",
+            },
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

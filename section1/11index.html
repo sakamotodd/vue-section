@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <tr>
+          <th>id</th>
+          <th>名前</th>
+          <th>内容</th>
+        </tr>
+        <tr
+          v-for="(b, index) in book"
+          :key="b.id"
+          style="border: 1px solid black"
+        >
+          <td>{{b.id}}</td>
+          <td>{{b.title}}</td>
+          <td>{{b.content}}</td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            book: [
+              {
+                id: 1,
+                title: "バカ",
+                content: "バカの話",
+              },
+              {
+                id: 2,
+                title: "アホ",
+                content: "アホの話",
+              },
+              {
+                id: 3,
+                title: "くそ",
+                content: "くその話",
+              },
+            ],
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

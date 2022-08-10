@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>{{result}}</div>
+      <div>{{result}}</div>
+      <div>{{me()}}</div>
+      <div>{{me()}}</div>
+    </div>
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            price: 2,
+            number: 2,
+          };
+        },
+        methods: {
+          me() {
+            console.log("methodsです。");
+            return this.price * this.number;
+          },
+        },
+        computed: {
+          result() {
+            console.log("computedです。");
+            return this.price * this.number;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

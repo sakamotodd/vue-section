@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="app.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+  </head>
+  <style>
+    .parent {
+      width: 800px;
+      margin: 0 auto;
+      border: 1px solid red;
+    }
+    .child {
+      width: 30%;
+      margin: 0 auto;
+      border: 1px solid blue;
+    }
+  </style>
+  <body>
+    <div id="app" class="parent">
+      <my-components title="test" class="child"></my-components>
+      <my-components :title="parentTitle" disabled class="child"></my-components>
+      <my-components class="child"></my-components>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+    <script>
+      let myComponents = {
+        template: `
+      <div>
+        あああああ<br/>
+        {{ getTitle }}
+        <div v-show="isShow">表示</div>
+      </div>
+        `,
+        props: {
+          title: {
+            type: String,
+          },
+          disabled: {
+            type: Boolean,
+            default: false,
+          },
+        },
+        data() {
+          return {
+            isShow: true,
+            getTitle: this.title,
+          };
+        },
+      };
+      let app = new Vue({
+        el: "#app",
+        components: {
+          // "my-components": myComponent,
+          myComponents,
+        },
+        data() {
+          return {
+            parentTitle: "親側のタイトル",
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

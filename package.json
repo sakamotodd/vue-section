@@ -1,0 +1,20 @@
+{
+  "name": "vueapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "copy1": "cp -R ./index.html .section1/${npm_config_name}index.html",
+    "copy2": "cp -R ./index2.html ./section4/${npm_config_name}index.html",
+    "copy3": "cp -R ./section5.html ./section5/${npm_config_name}index.html"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.24.1"
+  }
+}
