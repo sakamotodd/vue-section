@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.5.55/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <v-app v-cloak>
+        <v-main>
+          <v-container fluid>
+            <v-row>
+              <v-col v-for="(dogType, i) in dogTypes" :key="i" cols="6" md="4">
+                <v-btn @click.prevent="fetchDogImage(i)" color="cyan" dark
+                  >{{ dogType }}</v-btn
+                >
+              </v-col>
+            </v-row>
+            <v-row v-show="isShow">
+              <v-col
+                v-for="dogimage in dogimages"
+                :key="dogimage"
+                cols="12"
+                sm="6"
+                md="4"
+              >
+            <v-card>
+              <v-img :src="dogimage"></v-img>
+            </v-card>
+            </v-col>
+            </v-row>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data() {
+          return {
+            dogTypes: ['akita', 'beagle', 'pekinese', 'pug'],
+            dogUrl: '',
+            dogimages: '',
+            isShow: false,
+          }
+        },
+        methods: {
+          async fetchDogImage(index) {
+            const that = this
+            this.dogUrl = `https://dog.ceo/api/breed/${this.dogTypes[index]}/images`
+            const responce = await fetch(this.dogUrl, { method: 'get' }).then(
+              (res) => {
+                if (res.ok) {
+                  that.isShow = true
+                  return res.json()
+                }
+                throw new Error('error').catch((e) => console.log(e.message))
+              }
+            )
+            this.render(responce)
+          },
+          render(responce) {
+            if (responce.message.length > 20) {
+              this.dogimages = _(responce.message)
+                .shuffle()
+                .slice(0, 20)
+                .value()
+            } else {
+              this.dogimages = _.shuffle(responce.message)
+            }
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

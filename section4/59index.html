@@ -25,12 +25,35 @@
     </style>
   </head>
   <body>
-    <div id="app" class="parent"></div>
+    <div id="app" class="parent">
+      <my-com class="child">
+        <template v-slot:header> ヘッダー </template>
+        あああああああ
+        <template #footer> ヘッダー </template>
+        ああああああ
+      </my-com>
+    </div>
     <script>
+      let myCom = {
+        template: `
+        <div>
+          <slot name="header">
+            header
+          </slot>
+          <slot>main contents</slot>
+          <slot name="footer">
+            footer
+          </slot>
+        </div>
+     `,
+      }
       let app = new Vue({
         el: '#app',
         data() {
           return {}
+        },
+        components: {
+          myCom,
         },
       })
     </script>
